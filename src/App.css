@@ -1,0 +1,121 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  width: 400px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.text-area {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.results-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.result-item {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.score-bars {
+  margin-top: 10px;
+}
+
+.score-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.score-label {
+  width: 70px; /* Căn chỉnh nhãn bên trái */
+  font-weight: bold;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  margin: 0 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #a3a1ff, #6b7cff);
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.score-value {
+  width: 40px; /* Căn chỉnh giá trị bên phải */
+  text-align: right;
+  font-size: 14px;
+}
+
+
+.result-item p {
+  margin: 5px 0;
+}
+
+.loading-container {
+  width: 100%; /* Đảm bảo thanh tải chiếm toàn bộ chiều rộng */
+  background-color: #f3f3f3; /* Màu nền cho thanh tải */
+  border-radius: 5px; /* Bo tròn góc */
+  margin: 10px 0; /* Khoảng cách trên dưới */
+  overflow: hidden; /* Ẩn phần tràn của thanh khi có bo tròn */
+  position: relative; /* Để căn chỉnh nội dung */
+  height: 8px; /* Độ cao của thanh tải */
+}
+
+.loading-bar {
+  height: 100%;
+  background: linear-gradient(to right, #a3a1ff, #6b7cff); /* Hiệu ứng chuyển màu giống thanh score */
+  border-radius: 5px;
+  transition: width 0.4s ease; /* Hiệu ứng chuyển động khi tăng chiều rộng */
+}
+
+.analyze-button {
+  padding: 10px 20px; /* Kích thước padding cho nút */
+  background-color: #f5f5f5; /* Màu nền sáng */
+  color: #333; /* Màu chữ tối */
+  border: 1px solid #ccc; /* Đường viền màu xám nhạt */
+  border-radius: 5px; /* Bo tròn các góc */
+  cursor: pointer;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
+  transition: all 0.3s ease; /* Hiệu ứng chuyển khi hover */
+  font-weight: bold;
+}
+
+.analyze-button:hover {
+  background-color: #e6e6e6; /* Màu nền khi hover */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Tăng đổ bóng khi hover */
+}
