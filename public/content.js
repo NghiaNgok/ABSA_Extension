@@ -82,6 +82,7 @@ function displayResultOnPage(result) {
     aspectElement.innerHTML = `
       <strong>Aspect:</strong> ${item.aspect || "Không xác định"}<br>
       <strong>Sentiment:</strong> ${item.sentiment || "Không xác định"}<br>
+       <strong>Category:</strong> ${item.category || "Không xác định"}<br>
       <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 5px;">
         <span>Negative:</span>
         <div style="flex: 1; background-color: #e0e0e0; border-radius: 4px; margin-left: 8px; height: 8px; overflow: hidden;">

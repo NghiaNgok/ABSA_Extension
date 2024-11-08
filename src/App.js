@@ -25,13 +25,13 @@ function App() {
           if (data.result && data.result.length > 0) {
             setResults(data.result);
           } else {
-            setResults([{ aspect: "Không xác định", sentiment: "Không xác định", scores: { Negative: 0, Neutral: 0, Positive: 0 } }]);
+            setResults([{ aspect: "Không xác định", sentiment: "Không xác định", category: "Không xác định", scores: { Negative: 0, Neutral: 0, Positive: 0 } }]);
           }
           setLoading(false);
         })
         .catch(error => {
           console.error("Lỗi khi gọi API:", error);
-          setResults([{ aspect: "Lỗi", sentiment: "Không xác định", scores: { Negative: 0, Neutral: 0, Positive: 0 } }]);
+          setResults([{ aspect: "Lỗi", sentiment: "Không xác định", category: "Không xác định", scores: { Negative: 0, Neutral: 0, Positive: 0 } }]);
           setLoading(false);
         });
 
@@ -61,13 +61,13 @@ function App() {
       <button onClick={handleAnalyze} className="analyze-button">Analyze</button>
 
       {loading && (
-  <div className="loading-container">
-    <div
-      className="loading-bar"
-      style={{ width: `${progress}%` }}
-    />
-  </div>
-)}
+        <div className="loading-container">
+          <div
+            className="loading-bar"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      )}
 
       {!loading && results.length > 0 && (
         <div className="results-container">
@@ -75,6 +75,7 @@ function App() {
             <div key={index} className="result-item">
               <p><strong>Aspect:</strong> {result.aspect}</p>
               <p><strong>Sentiment:</strong> {result.sentiment}</p>
+              <p><strong>Category:</strong> {result.category}</p>
               <div className="score-bars">
                 {Object.keys(result.scores).map((label) => (
                   <div key={label} className="score-bar">
