@@ -11,7 +11,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const text = request.text;
     console.log("Received text to analyze:", text);
 
-    // Send request to API
+    // Gửi request đến API
     fetch("http://127.0.0.1:5000/predict", {
       method: "POST",
       headers: {
@@ -23,10 +23,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       .then((data) => {
         console.log("API response:", data);
 
-        // Send result back to content script
+        // Truyền kết quả về content script
         chrome.tabs.sendMessage(sender.tab.id, {
           action: "displayResult",
-          result: data.result,
+          result: data.result, // Đúng cấu trúc từ api.py mới
         });
         console.log("Result sent back to content script");
         sendResponse({ success: true });
@@ -36,6 +36,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendResponse({ success: false });
       });
 
-    return true; // Keep message channel open for async response
+    return true; // Giữ kênh message mở cho async response
   }
 });

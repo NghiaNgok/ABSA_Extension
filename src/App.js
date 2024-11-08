@@ -4,6 +4,7 @@ import './App.css';
 function App() {
   const [text, setText] = useState('');
   const [results, setResults] = useState([]);
+  const [overallSentiment, setOverallSentiment] = useState(''); // Thêm state cho overall sentiment
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -23,14 +24,17 @@ function App() {
         .then(response => response.json())
         .then(data => {
           if (data.result && data.result.length > 0) {
+            setOverallSentiment(data.result[0].overall_sentiment); // Lưu overall sentiment
             setResults(data.result);
           } else {
+            setOverallSentiment("Không xác định");
             setResults([{ aspect: "Không xác định", sentiment: "Không xác định", category: "Không xác định", scores: { Negative: 0, Neutral: 0, Positive: 0 } }]);
           }
           setLoading(false);
         })
         .catch(error => {
           console.error("Lỗi khi gọi API:", error);
+          setOverallSentiment("Lỗi");
           setResults([{ aspect: "Lỗi", sentiment: "Không xác định", category: "Không xác định", scores: { Negative: 0, Neutral: 0, Positive: 0 } }]);
           setLoading(false);
         });
@@ -71,6 +75,12 @@ function App() {
 
       {!loading && results.length > 0 && (
         <div className="results-container">
+          {/* Block Overall Sentiment */}
+          <div className="overall-sentiment">
+            <p><strong>Overall Sentiment:</strong> {overallSentiment || "Không xác định"}</p>
+          </div>
+
+          {/* Aspect Results */}
           {results.map((result, index) => (
             <div key={index} className="result-item">
               <p><strong>Aspect:</strong> {result.aspect}</p>

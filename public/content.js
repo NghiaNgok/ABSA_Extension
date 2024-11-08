@@ -30,9 +30,6 @@ function createLogButton() {
         }
       }
     );
-
-    // Show the result container in place of the button
-    displayResultOnPage([{ aspect: "không xác định", sentiment: "không xác định", scores: { Negative: 0, Neutral: 0, Positive: 0 } }]);
   });
 
   document.body.appendChild(logButton);
@@ -71,10 +68,20 @@ function displayResultOnPage(result) {
   resultContainer.style.borderRadius = "8px";
   resultContainer.style.zIndex = "10000";
   resultContainer.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)";
-  resultContainer.style.width = "280px"; // Expanded width for better visibility
+  resultContainer.style.width = "280px";
+
+  // Display Overall Sentiment in a separate box
+  const overallSentiment = result[0]?.overall_sentiment || "Không xác định";
+  const overallElement = document.createElement("div");
+  overallElement.style.borderBottom = "1px solid #eaeaea";
+  overallElement.style.padding = "8px 0";
+  overallElement.innerHTML = `<strong>Overall Sentiment:</strong> ${overallSentiment}<br>`;
+  resultContainer.appendChild(overallElement);
 
   // Loop over each aspect in the result and display it
   result.forEach((item) => {
+    if (!item.aspect) return; // Skip items without an aspect
+
     const aspectElement = document.createElement("div");
     aspectElement.style.borderBottom = "1px solid #eaeaea";
     aspectElement.style.padding = "8px 0";
@@ -82,7 +89,7 @@ function displayResultOnPage(result) {
     aspectElement.innerHTML = `
       <strong>Aspect:</strong> ${item.aspect || "Không xác định"}<br>
       <strong>Sentiment:</strong> ${item.sentiment || "Không xác định"}<br>
-       <strong>Category:</strong> ${item.category || "Không xác định"}<br>
+      <strong>Category:</strong> ${item.category|| "Không xác định"}<br>
       <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 5px;">
         <span>Negative:</span>
         <div style="flex: 1; background-color: #e0e0e0; border-radius: 4px; margin-left: 8px; height: 8px; overflow: hidden;">

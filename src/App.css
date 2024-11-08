@@ -119,3 +119,15 @@ h1 {
   background-color: #e6e6e6; /* Màu nền khi hover */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Tăng đổ bóng khi hover */
 }
+
+.overall-sentiment {
+  padding: 0px;
+  background-color: #e9fafc; /* Màu nền xanh nhạt cho sự nổi bật */
+  border: 1px solid #b2ebf2; /* Đường viền xanh nhạt */
+  border-radius: 5px; /* Bo tròn các góc */
+  margin-bottom: 10px; /* Khoảng cách giữa overall sentiment và các aspect */
+  width: 100%; /* Chiều rộng bằng với container */
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
