@@ -5,10 +5,13 @@
   "permissions": [
     "activeTab",
     "scripting",
-    "contextMenus"
+    "contextMenus",
+    "tabs"
   ],
   "host_permissions": [
-    "<all_urls>"
+    "http://127.0.0.1/*",
+    "<all_urls>",
+    "*://*/*"
   ],
   "action": {
     "default_popup": "index.html",

@@ -1,10 +1,17 @@
-console.log("Analyze button clicked, sending text:");
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "analyzeText") {
-    const text = message.text;
+console.log("Background script loaded");
+
+chrome.runtime.onInstalled.addListener(() => {
+  console.log("Extension installed and background script loaded");
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "logText" && request.text) {
+    console.log("Received text in background:", request.text);
+
+    const text = request.text;
     console.log("Received text to analyze:", text);
 
-    // Gửi yêu cầu tới API
+    // Send request to API
     fetch("http://127.0.0.1:5000/predict", {
       method: "POST",
       headers: {
@@ -16,11 +23,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       .then((data) => {
         console.log("API response:", data);
 
-        // Gửi lại kết quả tới content.js
+        // Send result back to content script
         chrome.tabs.sendMessage(sender.tab.id, {
           action: "displayResult",
-          result: data.result, // Đảm bảo `data.result` là phần cần hiển thị
+          result: data.result,
         });
+        console.log("Result sent back to content script");
         sendResponse({ success: true });
       })
       .catch((error) => {
@@ -28,6 +36,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ success: false });
       });
 
-    return true; // Giữ kênh tin nhắn mở để gửi phản hồi bất đồng bộ
+    return true; // Keep message channel open for async response
   }
 });
