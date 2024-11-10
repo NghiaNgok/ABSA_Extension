@@ -70,12 +70,36 @@ function displayResultOnPage(result) {
   resultContainer.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)";
   resultContainer.style.width = "280px";
 
-  // Display Overall Sentiment in a separate box
+  // Display Overall Sentiment in a separate box with distinct styling
   const overallSentiment = result[0]?.overall_sentiment || "Không xác định";
+  const overallScores = result[0]?.overall_scores || { Positive: 0, Neutral: 0, Negative: 0 };
   const overallElement = document.createElement("div");
   overallElement.style.borderBottom = "1px solid #eaeaea";
-  overallElement.style.padding = "8px 0";
+  overallElement.style.padding = "12px";
+  overallElement.style.marginBottom = "8px";
+  overallElement.style.backgroundColor = "#f0f9ff";
+  overallElement.style.border = "2px solid #007bff"; // Blue border to highlight
+  overallElement.style.borderRadius = "6px";
   overallElement.innerHTML = `<strong>Overall Sentiment:</strong> ${overallSentiment}<br>`;
+
+  // Add progress bars for Overall Sentiment
+  ["Positive", "Neutral", "Negative"].forEach((key) => {
+    const color = key === "Positive" ? "#4CAF50" : key === "Neutral" ? "#6c757d" : "#ff6b6b";
+    const barContainer = document.createElement("div");
+    barContainer.style.display = "flex";
+    barContainer.style.alignItems = "center";
+    barContainer.style.justifyContent = "space-between";
+    barContainer.style.marginTop = "5px";
+    barContainer.innerHTML = `
+      <span>${key}:</span>
+      <div style="flex: 1; background-color: #e0e0e0; border-radius: 4px; margin-left: 8px; height: 8px; overflow: hidden;">
+        <div style="width: ${overallScores[key] * 100}%; background-color: ${color}; height: 100%;"></div>
+      </div>
+      <span style="margin-left: 8px; width: 50px; text-align: right;">${overallScores[key].toFixed(3)}</span>
+    `;
+    overallElement.appendChild(barContainer);
+  });
+
   resultContainer.appendChild(overallElement);
 
   // Loop over each aspect in the result and display it
@@ -124,6 +148,7 @@ function displayResultOnPage(result) {
     }
   });
 }
+
 
 // Listen for messages from background.js to display the result
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

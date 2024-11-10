@@ -5,6 +5,7 @@ function App() {
   const [text, setText] = useState('');
   const [results, setResults] = useState([]);
   const [overallSentiment, setOverallSentiment] = useState(''); // Thêm state cho overall sentiment
+  const [overallScores, setOverallScores] = useState({ Negative: 0, Neutral: 0, Positive: 0 }); // Thêm state cho overall scores
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -23,11 +24,14 @@ function App() {
       })
         .then(response => response.json())
         .then(data => {
+          console.log(data);
           if (data.result && data.result.length > 0) {
             setOverallSentiment(data.result[0].overall_sentiment); // Lưu overall sentiment
+            setOverallScores(data.result[0].overall_scores); // Lưu overall scores
             setResults(data.result);
           } else {
             setOverallSentiment("Không xác định");
+            setOverallScores({ Negative: 0, Neutral: 0, Positive: 0 });
             setResults([{ aspect: "Không xác định", sentiment: "Không xác định", category: "Không xác định", scores: { Negative: 0, Neutral: 0, Positive: 0 } }]);
           }
           setLoading(false);
@@ -35,6 +39,7 @@ function App() {
         .catch(error => {
           console.error("Lỗi khi gọi API:", error);
           setOverallSentiment("Lỗi");
+          setOverallScores({ Negative: 0, Neutral: 0, Positive: 0 });
           setResults([{ aspect: "Lỗi", sentiment: "Không xác định", category: "Không xác định", scores: { Negative: 0, Neutral: 0, Positive: 0 } }]);
           setLoading(false);
         });
@@ -78,6 +83,20 @@ function App() {
           {/* Block Overall Sentiment */}
           <div className="overall-sentiment">
             <p><strong>Overall Sentiment:</strong> {overallSentiment || "Không xác định"}</p>
+            <div className="score-bars">
+              {Object.keys(overallScores).map((label) => (
+                <div key={label} className="score-bar">
+                  <span className="score-label">{label}</span>
+                  <div className="progress-bar">
+                    <div
+                      className="progress-fill"
+                      style={{ width: `${overallScores[label] * 100}%` }}
+                    ></div>
+                  </div>
+                  <span className="score-value">{overallScores[label].toFixed(3)}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Aspect Results */}

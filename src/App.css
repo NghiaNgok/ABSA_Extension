@@ -120,14 +120,69 @@ h1 {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Tăng đổ bóng khi hover */
 }
 
+/* Overall Sentiment Block Styling */
 .overall-sentiment {
-  padding: 0px;
-  background-color: #e9fafc; /* Màu nền xanh nhạt cho sự nổi bật */
-  border: 1px solid #b2ebf2; /* Đường viền xanh nhạt */
-  border-radius: 5px; /* Bo tròn các góc */
-  margin-bottom: 10px; /* Khoảng cách giữa overall sentiment và các aspect */
-  width: 100%; /* Chiều rộng bằng với container */
-  text-align: center;
-  font-weight: bold;
-  font-size: 16px;
+  padding: 10px;
+  background-color: #e9fafc; /* Light blue background for emphasis */
+  border: 1px solid #b2ebf2; /* Light blue border */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
 }
+
+.overall-sentiment p{
+  text-align: center;
+  text-size-adjust: 20px;
+}
+
+
+/* Score bars container */
+.score-bars {
+  margin-top: 10px;
+}
+
+/* Individual score bar layout */
+.score-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  justify-content: start;
+}
+
+.score-label {
+  width: 70px; /* Align label on the left */
+  font-weight: bold;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  margin: 0 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #a3a1ff, #6b7cff);
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.score-value {
+  width: 40px; /* Align value on the right */
+  text-align: right;
+  font-size: 14px;
+}
+
+/* Result Item Styling */
+.result-item {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
